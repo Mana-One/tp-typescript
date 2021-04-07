@@ -29,11 +29,19 @@ describe("Pokemon class", function(){
         expect(p1.getSpeed()).toBe(127);
     });
 
-    it( "p2's speed should be  141", function(){
+    it( "p2's speed should be 141", function(){
         expect(p2.getSpeed()).toBe(141);
     })
 
     it( "p2 should be faster", function(){
         expect(Pokemon.getFirstAttacker(p1, p2)).toBe(p2);
     });
+
+    it( "p1's attack should be 51", function(){
+        expect(p1.getAttackDamage()).toBe(51);
+    });
+
+    it( "p2's attack should be  141", function(){
+        expect(p2.getAttackDamage()).toBe(57);
+    })
 })
