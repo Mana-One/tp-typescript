@@ -1,47 +1,43 @@
-import {Pokemon} from "./index";
+import {Pokemon} from "./pokemon.model";
 
 const p1 = new Pokemon({
-    name: "hoho",
-    baseSpeed: 130,
-    baseAttack: 40,
+    name: "Charizard",
+    baseHp: 78,
+    baseSpeed: 100,
+    baseAttack: 84,
     level: 53,
     nature: {
         attack: 1.1,
-        speed: 0.9,
-        defense: 1
+        speed: 0.9
     }
 });
 
 const p2 = new Pokemon({
-    name: "haha",
-    baseSpeed: 120,
+    name: "Lucario",
+    baseHp: 70,
+    baseSpeed: 110,
     baseAttack: 50,
     level: 52,
     nature: {
         attack: 1,
-        speed: 1.1,
-        defense: 0.9
+        speed: 1.1
     }
 });
 
 describe("Pokemon class", function(){
-    it( "p1's speed should be 127", function(){
-        expect(p1.getSpeed()).toBe(127);
+    it( "should return 99 for p1's speed", function(){
+        expect(p1.getSpeed()).toBe(99);
     });
 
-    it( "p2's speed should be 141", function(){
-        expect(p2.getSpeed()).toBe(141);
-    })
-
-    it( "p2 should be faster", function(){
+    it( "should return p2 as the fastest", function(){
         expect(Pokemon.getFirstAttacker(p1, p2)).toBe(p2);
     });
 
-    it( "p1's attack should be 51", function(){
-        expect(p1.getAttackDamage()).toBe(51);
+    it( "should return 103 for p1's attack", function(){
+        expect(p1.getAttack()).toBe(103);
     });
 
-    it( "p2's attack should be  141", function(){
-        expect(p2.getAttackDamage()).toBe(57);
-    })
+    it( "should return 145 for p1's hp", function(){
+        expect(p1.getHp()).toBe(145);
+    });
 })
