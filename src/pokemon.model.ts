@@ -1,4 +1,6 @@
 type NatureBonus = 1 | 1.1 | 0.9;
+type NatureKey = "attack" | "speed";
+
 export interface Nature {
     attack: NatureBonus;
     speed:NatureBonus;
@@ -37,7 +39,7 @@ export class Pokemon implements PokemonProps {
         this.level = props.level;
     }
 
-    private getFinalStatValue (baseValue: number, statName: string): number {
+    private getFinalStatValue (baseValue: number, statName: NatureKey): number {
         return Math.floor(
             Math.floor(2 * baseValue * this.level / 100 + 5) * this.nature[statName]
         );
