@@ -6,27 +6,29 @@ export interface BattleProps {
 };
 
 export class Battle {
-    pokemon1: {
-        character: Pokemon,
-        currentHp: number
-    };
-    pokemon2: {
-        character: Pokemon,
-        currentHp: number
-    };
+    adversaries: Pokemon[] = new Array<Pokemon>();
     
     constructor(pokemon1: Pokemon, pokemon2: Pokemon){
-        this.pokemon1 = {
-            character: pokemon1,
-            currentHp: pokemon1.getHp()
-        };
-        this.pokemon2 = {
-            character: pokemon2,
-            currentHp: pokemon2.getHp()
-        }
+        this.adversaries.push(pokemon1, pokemon2);
     }
 
-    battle(){
-        const firstAttacker = Pokemon.getFirstAttacker(this.pokemon1.character, this.pokemon2.character);
+    async battle(random = Math.random): Promise<Pokemon> {
+        const firstAttacker = Pokemon.getFirstAttacker(this.adversaries[0], this.adversaries[1]);
+        let attacker = this.adversaries.indexOf(firstAttacker);
+
+        return new Promise<Pokemon>(resolve => {
+            const intervalId = setInterval(() => {
+                let defender = (attacker + 1) % 2;
+                this.adversaries[attacker].hit(this.adversaries[defender], random);
+
+                if(this.adversaries[defender].hp === 0){
+                    resolve(this.adversaries[attacker]);
+                    clearInterval(intervalId);
+
+                } else {
+                    attacker = defender;
+                }
+            }, 1000);
+        })
     }
 }
