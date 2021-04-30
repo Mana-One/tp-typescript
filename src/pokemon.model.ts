@@ -1,30 +1,18 @@
-type NatureBonus = 1 | 1.1 | 0.9;
-type NatureKey = "attack" | "speed";
-
-export interface Nature {
-    attack: NatureBonus;
-    speed:NatureBonus;
-}
-
 export interface PokemonProps {
     name: string;
-    baseHp: number;
-    baseSpeed: number;
-    baseAttack: number;
-    level: number;
-    nature: Nature;
+    hp: number;
+    speed: number;
+    attack: number;
 }
 
 export class Pokemon implements PokemonProps {
-    readonly name: string;
-    readonly baseHp: number;
-    readonly baseSpeed: number;
-    readonly baseAttack: number;
-    readonly nature: Nature;
-    level: number;
+    name: string;
+    hp: number;
+    speed: number;
+    attack: number;
 
     static getFirstAttacker (pokemon1: Pokemon, pokemon2: Pokemon): Pokemon {
-        if (pokemon1.getSpeed() >= pokemon2.getSpeed()){
+        if (pokemon1.speed >= pokemon2.speed){
             return pokemon1;
         }
         return pokemon2;
@@ -32,28 +20,20 @@ export class Pokemon implements PokemonProps {
 
     constructor (props: PokemonProps) {
         this.name = props.name;
-        this.baseHp = props.baseHp;
-        this.baseSpeed = props.baseSpeed;
-        this.baseAttack = props.baseAttack;
-        this.nature = props.nature;
-        this.level = props.level;
+        this.hp = props.hp;
+        this.attack = props.attack;
+        this.speed = props.speed;
     }
 
-    private getFinalStatValue (baseValue: number, statName: NatureKey): number {
-        return Math.floor(
-            Math.floor(2 * baseValue * this.level / 100 + 5) * this.nature[statName]
-        );
+    hit(foe: Pokemon, random = Math.random): void {
+        const chance = random() * 99;
+        if(chance > 15){
+            foe.receiveHit(this.attack);
+        }
     }
 
-    getSpeed(): number {
-        return this.getFinalStatValue(this.baseSpeed, "speed");
-    }
-
-    getAttack(): number {
-        return this.getFinalStatValue(this.baseAttack, "attack");
-    }
-    
-    getHp(): number {
-        return Math.floor(2 * this.baseHp * this.level / 100 + this.level + 10);
+    receiveHit(dmg: number): void {
+        this.hp -= dmg;
+        this.hp = this.hp < 0 ? 0 : this.hp;
     }
 };

@@ -1,2 +1,2 @@
-export * from "./move.model";
+export * from "./battle.model";
 export * from "./pokemon.model";
