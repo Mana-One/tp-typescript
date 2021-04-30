@@ -1,4 +1,4 @@
-import {Pokemon} from "../src/pokemon.model";
+import {Pokemon} from "../src";
 
 const p1 = new Pokemon({
     name: "Charizard",

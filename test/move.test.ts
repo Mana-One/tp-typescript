@@ -1,4 +1,4 @@
-import {Move} from "../src/move.model";
+import {Move} from "../src/";
 
 const move = new Move({
     name: "cut",
