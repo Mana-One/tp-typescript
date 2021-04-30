@@ -17,7 +17,7 @@ describe("Battle simulation", () => {
 
     const battle = new Battle(p1, p2);
 
-    it("should return p2 as winner if no hit was missed", () => {
-        return expect(battle.battle()).resolves.toEqual(p1);
+    it("should return p1 as winner if no hit was missed", () => {
+        return expect(battle.battle(() => 1)).resolves.toEqual(p1);
     })
 })
